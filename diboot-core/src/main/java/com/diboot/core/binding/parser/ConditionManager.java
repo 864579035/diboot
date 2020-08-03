@@ -133,7 +133,7 @@ public class ConditionManager extends BaseConditionManager{
             else if(operator instanceof IsNullExpression){
                 IsNullExpression express = (IsNullExpression)operator;
                 String annoColumn = removeLeftAlias(express.getLeftExpression().toString());
-                if(express.isNot() == false){
+                if(!express.isNot()){
                     binder.andIsNull(annoColumn);
                 }
                 else{
@@ -143,7 +143,7 @@ public class ConditionManager extends BaseConditionManager{
             else if(operator instanceof InExpression){
                 InExpression express = (InExpression)operator;
                 String annoColumn = removeLeftAlias(express.getLeftExpression().toString());
-                if(express.isNot() == false){
+                if(!express.isNot()){
                     binder.andApply(S.toSnakeCase(annoColumn) + " IN " + express.getRightItemsList().toString());
                 }
                 else{
@@ -153,7 +153,7 @@ public class ConditionManager extends BaseConditionManager{
             else if(operator instanceof Between){
                 Between express = (Between)operator;
                 String annoColumn = removeLeftAlias(express.getLeftExpression().toString());
-                if(express.isNot() == false){
+                if(!express.isNot()){
                     binder.andBetween(annoColumn, express.getBetweenExpressionStart().toString(), express.getBetweenExpressionEnd().toString());
                 }
                 else{
@@ -163,11 +163,11 @@ public class ConditionManager extends BaseConditionManager{
             else if(operator instanceof LikeExpression){
                 LikeExpression express = (LikeExpression)operator;
                 String annoColumn = removeLeftAlias(express.getLeftExpression().toString());
-                if(express.isNot() == false){
-                    binder.andLike(annoColumn, express.getStringExpression());
+                if(!express.isNot()){
+                    binder.andLike(annoColumn, express.getRightExpression().toString());
                 }
                 else{
-                    binder.andNotLike(annoColumn, express.getStringExpression());
+                    binder.andNotLike(annoColumn, express.getRightExpression().toString());
                 }
             }
             else{

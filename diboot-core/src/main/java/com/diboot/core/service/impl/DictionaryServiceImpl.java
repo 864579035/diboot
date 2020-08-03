@@ -44,8 +44,6 @@ import java.util.Set;
  * @version 2.0
  * @date 2019/01/01
  */
-@Primary
-@Service("dictionaryService")
 public class DictionaryServiceImpl extends BaseServiceImpl<DictionaryMapper, Dictionary> implements DictionaryService {
     private static final Logger log = LoggerFactory.getLogger(DictionaryServiceImpl.class);
 
